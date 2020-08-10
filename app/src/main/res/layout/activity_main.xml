@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dp"
+    android:layout_weight="1"
+    android:background="#B4B8C5"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/BlackScholesTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/BlackScholestitle"
+        android:textSize="37sp"
+        android:textColor="#6A656A"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/OptionPriceLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="#6A656A"
+        android:text="@string/optionPrice"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/optionPrice"
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@drawable/rectangle"
+        android:hint="@string/hintOptionPrice"
+        android:padding="20dp"
+        android:text=""
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:id="@+id/OptionStrikePriceLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="#6A656A"
+        android:text="@string/optionStrikePrice"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/optionStrikePrice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+
+        android:background="@drawable/rectangle"
+        android:hint="@string/hintOptionPrice"
+        android:padding="20dp"
+        android:text=""
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/setDateLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="#6A656A"
+        android:text="@string/date"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="62dp">
+
+        <Button
+            android:id="@+id/dateMonth"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:layout_marginLeft="140dp"
+            android:background="#6A656A"
+            android:baselineAligned="false"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/hintMonth"
+            android:text="" />
+
+        <Button
+            android:id="@+id/dateDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:background="#6A656A"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/hintDay"
+            android:text="" />
+
+        <Button
+            android:id="@+id/dateYear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="290dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="#6A656A"
+            android:textColorHint="#FFFFFF"
+            android:hint="@string/hintYear"
+            android:text="" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/riskFreeInterestRateLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#6A656A"
+            android:text="@string/riskFreeInterestRate"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/riskFreeInterestRate"
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/rectangle"
+            android:hint="@string/hintOptionPrice"
+            android:padding="20dp"
+            android:text=""
+            android:textColor="#ffffff" />
+
+        <TextView
+            android:id="@+id/volatilityLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#6A656A"
+            android:text="@string/volatility"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/volatility"
+            android:layout_width="349dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:background="@drawable/rectangle"
+            android:hint="@string/hintOptionPrice"
+            android:padding="20dp"
+            android:text=""
+            android:textColor="#ffffff" />
+
+        <Button
+            android:id="@+id/calculate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="90dp"
+            android:layout_marginRight="90dp"
+            android:background="#6A656A"
+            android:textColor="#FFFFFF"
+            android:text="@string/Calculate" />
+
+    </LinearLayout>
+
+
+</LinearLayout>
