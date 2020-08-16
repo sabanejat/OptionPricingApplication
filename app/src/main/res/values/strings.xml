@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Option Pricing App</string>
-    <string name="BlackScholestitle">Black-Scholes Calculator</string>
+    <string name="BlackScholestitle">Black Scholes Calculator</string>
     <string name="hintOptionPrice">100</string>
     <string name="optionPrice">Option Price</string>
     <string name="optionStrikePrice">Option Strike Price</string>
@@ -11,6 +11,10 @@
     <string name="riskFreeInterestRate">Risk free interest rate</string>
     <string name="volatility">Volatility</string>
     <string name="Calculate">Calculate</string>
+    <string name="_150">150</string>
+    <string name="_0_5">0.5</string>
+    <string name="_1">1</string>
+    <string name="_25">25</string>
 
 
 </resources>
