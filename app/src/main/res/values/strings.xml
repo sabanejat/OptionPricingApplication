@@ -15,6 +15,10 @@
     <string name="_0_5">0.5</string>
     <string name="_1">1</string>
     <string name="_25">25</string>
+    <string name="fragment_three">Fragment Three</string>
+    <string name="BinomialPricing">Binomial Calculator</string>
+    <string name="NumberOfSteps">Number of steps</string>
+    <string name="_100">100</string>
 
 
 </resources>
