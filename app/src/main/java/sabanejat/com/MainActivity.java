@@ -7,20 +7,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-// import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static java.lang.Math.PI;
-import static java.lang.Math.abs;
-import static java.lang.Math.exp;
-import static java.lang.Math.log;
-import static java.lang.Math.pow;
-import static java.lang.Math.sqrt;
 
 public class MainActivity extends AppCompatActivity {
 

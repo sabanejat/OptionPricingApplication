@@ -19,6 +19,11 @@
     <string name="BinomialPricing">Binomial Calculator</string>
     <string name="NumberOfSteps">Number of steps</string>
     <string name="_100">100</string>
+    <string name="binomial">Binomial</string>
+    <string name="black_scholes">Black Scholes</string>
+    <string name="monte_carlo_calculator">Monte Carlo Calculator</string>
+    <string name="number_of_simulations">Number of simulations</string>
+    <string name="call_option">Call Option</string>
 
 
 </resources>

@@ -63,7 +63,7 @@ public class First_Frag extends Fragment {
 
 
 
-                showToast(String.valueOf(calculate(true,sharePrice, strikePrice, riskFree/100, vol/100, time)));
+                showToast(String.valueOf(calculate(true,sharePrice, strikePrice, riskFree/100, time, vol/100)));
             }
         });
 
