@@ -30,7 +30,7 @@
         android:layout_marginLeft="30dp"
         android:layout_marginBottom="5dp"
         android:textColor="#6A656A"
-        android:text="@string/optionPrice"
+        android:text="@string/share_price"
         android:textSize="18sp" />
 
     <EditText
@@ -59,7 +59,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:textColor="#6A656A"
-        android:text="@string/optionStrikePrice"
+        android:text="@string/strike_price"
         android:textSize="18sp" />
 
     <EditText
@@ -88,7 +88,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="5dp"
         android:textColor="#6A656A"
-        android:text="@string/date"
+        android:text="@string/time_to_maturity"
         android:textSize="18sp" />
 
 

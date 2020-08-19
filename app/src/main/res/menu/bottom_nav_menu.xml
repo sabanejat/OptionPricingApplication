@@ -4,19 +4,16 @@
     <item
         android:id="@+id/action_calendar"
         android:enabled="true"
-        android:icon="@drawable/ic_calendar"
         android:title="@string/black_scholes"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_dollar"
         android:enabled="true"
-        android:icon="@drawable/ic_dollar"
         android:title="@string/binomial"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_percent"
         android:enabled="true"
-        android:icon="@drawable/ic_percent"
-        android:title="percent"
+        android:title="@string/monte_carlo"
         app:showAsAction="ifRoom" />
 </menu>

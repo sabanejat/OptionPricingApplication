@@ -30,14 +30,12 @@ public class MainActivity extends AppCompatActivity {
                         loadFragment(First);
                         break;
                     case R.id.action_dollar:
-                        Toast.makeText(MainActivity.this, "dollar", Toast.LENGTH_SHORT).show();
                         Fragment Second = new Second_Frag();
                         loadFragment(Second);
                         break;
                     case R.id.action_percent:
                         Fragment Third = new Third_Frag();
                         loadFragment(Third);
-                        Toast.makeText(MainActivity.this, "percent", Toast.LENGTH_SHORT).show();
                         break;
                 }
                 return true;

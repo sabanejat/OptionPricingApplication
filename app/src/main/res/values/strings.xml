@@ -24,6 +24,10 @@
     <string name="monte_carlo_calculator">Monte Carlo Calculator</string>
     <string name="number_of_simulations">Number of simulations</string>
     <string name="call_option">Call Option</string>
+    <string name="monte_carlo">Monte Carlo</string>
+    <string name="share_price">Share Price</string>
+    <string name="strike_price">Strike Price</string>
+    <string name="time_to_maturity">Time to Maturity (in years)</string>
 
 
 </resources>
