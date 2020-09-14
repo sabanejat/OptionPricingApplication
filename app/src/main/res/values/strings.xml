@@ -20,6 +20,7 @@
     <string name="NumberOfSteps">Number of steps</string>
     <string name="_100">100</string>
     <string name="binomial">Binomial</string>
+    <string name="history">History</string>
     <string name="black_scholes">Black Scholes</string>
     <string name="monte_carlo_calculator">Monte Carlo Calculator</string>
     <string name="number_of_simulations">Number of simulations</string>
@@ -28,6 +29,11 @@
     <string name="share_price">Share Price</string>
     <string name="strike_price">Strike Price</string>
     <string name="time_to_maturity">Time to Maturity (in years)</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="baw">BAW</string>
+    <string name="baw_calculator">BAW Calculator</string>
+    <string name="dividends">Dividends</string>
 
 
 </resources>

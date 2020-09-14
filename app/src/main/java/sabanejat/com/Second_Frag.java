@@ -14,6 +14,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import static sabanejat.com.Constant.readFromFile;
+import static sabanejat.com.Constant.writeToFile;
+
 public class Second_Frag extends Fragment {
 
 
@@ -66,6 +69,17 @@ public class Second_Frag extends Fragment {
 
                 List<Double> results = estimatePrice(sharePrice, strikePrice, vol / 100, riskFree / 100, time, N);
                 Double callOptionPrice = results.get(0);
+
+                try {
+
+                    String data = readFromFile(getActivity()) + "1," + sharePrice + "," + strikePrice + "," + riskFree / 100 + "," + time + "," + vol / 100 + "," + N + "," + callOptionPrice + "-";
+                    writeToFile(data, getActivity());
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
 
 
                 showToast(String.valueOf(callOptionPrice));

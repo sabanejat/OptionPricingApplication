@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
+
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -36,6 +36,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_percent:
                         Fragment Third = new Third_Frag();
                         loadFragment(Third);
+                        break;
+                    case R.id.action_five:
+                        Fragment Fourth = new Fourth_Frag();
+                        loadFragment(Fourth);
+                        break;
+                    case R.id.action_history:
+                        Fragment history = new History();
+                        loadFragment(history);
                         break;
                 }
                 return true;

@@ -3,17 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_calendar"
-        android:enabled="true"
         android:title="@string/black_scholes"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_bs"
+        android:background="#6A656A"
+         />
     <item
         android:id="@+id/action_dollar"
-        android:enabled="true"
         android:title="@string/binomial"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_calendar"
+        android:background="#6A656A"/>
     <item
         android:id="@+id/action_percent"
-        android:enabled="true"
         android:title="@string/monte_carlo"
-        app:showAsAction="ifRoom" />
+        android:icon="@drawable/ic_calendar"
+        android:background="#6A656A"/>
+
+    <item
+        android:id="@+id/action_five"
+        android:title="@string/baw"
+        android:icon="@drawable/ic_calendar"
+        android:background="#6A656A"/>
+
+    <item
+        android:id="@+id/action_history"
+        android:title="@string/history"
+        android:icon="@drawable/ic_calendar"
+        android:background="#6A656A"/>
 </menu>

@@ -14,12 +14,15 @@
         android:id="@+id/MainActivity_Frame"
         android:layout_above="@+id/MainActivity_BottomNavigation"/>
 
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:background="#999999"
         android:id="@+id/MainActivity_BottomNavigation"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottom_nav_menu"/>
+        app:itemTextColor="@android:color/white"
 
+        app:menu="@menu/bottom_nav_menu"/>
 
 </RelativeLayout>
