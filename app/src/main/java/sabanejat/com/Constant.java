@@ -24,6 +24,7 @@ public class Constant {
             buffered_writer.close();
         } catch (IOException e) {
             Log.e("Exception", "File write failed: " + e.toString());
+
         }
     }
 

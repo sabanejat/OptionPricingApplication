@@ -14,7 +14,7 @@
         android:id="@+id/BlackScholesTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="-3dp"
         android:gravity="center"
         android:text="@string/baw_calculator"
         android:textSize="37sp"
@@ -195,9 +195,11 @@
             android:padding="20dp"
             android:text=""
             android:textColor="#000000"
-            android:hint="@string/_100"
+            android:drawableStart="@drawable/ic_percent"
+            android:hint="@string/_1"
             android:autofillHints=""
-            android:inputType="number" />
+            android:inputType="numberDecimal"
+            android:drawableLeft="@drawable/ic_percent" />
 
 
         <RelativeLayout
@@ -234,26 +236,28 @@
 
     </LinearLayout>
 
-    <fragment
-        android:id="@+id/fragment"
-        android:name="sabanejat.com.Fourth_Frag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_fourth" />
 
-    <fragment
-        android:id="@+id/fragment2"
-        android:name="sabanejat.com.Fourth_Frag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_fourth" />
 
-    <fragment
-        android:id="@+id/fragment3"
-        android:name="sabanejat.com.Fourth_Frag"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_fourth" />
+    <!--    <fragment-->
+    <!--        android:id="@+id/fragment"-->
+    <!--        android:name="sabanejat.com.Fourth_Frag"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        tools:layout="@layout/fragment_fourth" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/fragment2"-->
+    <!--        android:name="sabanejat.com.Fourth_Frag"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        tools:layout="@layout/fragment_fourth" />-->
+
+    <!--    <fragment-->
+    <!--        android:id="@+id/fragment3"-->
+    <!--        android:name="sabanejat.com.Fourth_Frag"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        tools:layout="@layout/fragment_fourth" />-->
 
 
 </LinearLayout>

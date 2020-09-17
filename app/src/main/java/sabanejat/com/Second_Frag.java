@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class Second_Frag extends Fragment {
     EditText optionDate;
     EditText numOfSteps;
 
+    Switch aSwitch;
     Button calculate;
 
     private View view;
@@ -44,7 +46,9 @@ public class Second_Frag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
+
+
         view = inflater.inflate(R.layout.fragment_second_, container, false);
 
 
@@ -57,6 +61,8 @@ public class Second_Frag extends Fragment {
 
 
         calculate = view.findViewById(R.id.calculate);
+        aSwitch = view.findViewById(R.id.callSwitch);
+
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,22 +73,52 @@ public class Second_Frag extends Fragment {
                 time = Double.parseDouble(optionDate.getText().toString());
                 N = Integer.parseInt(numOfSteps.getText().toString());
 
-                List<Double> results = estimatePrice(sharePrice, strikePrice, vol / 100, riskFree / 100, time, N);
-                Double callOptionPrice = results.get(0);
 
-                try {
 
-                    String data = readFromFile(getActivity()) + "1," + sharePrice + "," + strikePrice + "," + riskFree / 100 + "," + time + "," + vol / 100 + "," + N + "," + callOptionPrice + "-";
-                    writeToFile(data, getActivity());
+                if (aSwitch.isChecked()) {
+                    List<Double> results = calculate(sharePrice, strikePrice, vol / 100, riskFree / 100, time, N);
+                    Double callOptionPrice = results.get(0);
+                    showToast(String.valueOf(callOptionPrice));
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    try {
+
+                        String data = readFromFile(getActivity()) + "1,"
+                                +"Black Scholes , share price: " + sharePrice + ", strike price: " + strikePrice
+                                + ", risk free interest rate: " + riskFree  + ", time: " + time + ", volatility: "
+                                + vol + ", number of steps: "+N   +" Call option price: "
+                                + calculate( sharePrice, strikePrice, vol / 100, riskFree/100, time, N)+ "-";
+                        writeToFile(data, getActivity());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    List<Double> results = calculate(sharePrice, strikePrice, vol / 100, riskFree / 100, time, N);
+                    Double putOptionPrice = results.get(1);
+                    showToast(String.valueOf(putOptionPrice));
+
+                    try {
+
+                        String data = readFromFile(getActivity()) + "1,"
+                                +"Binomial , share price: " + sharePrice + ", strike price: " + strikePrice
+                                + ", risk free interest rate: " + riskFree  + ", time: " + time + ", volatility: "
+                                + vol + ", number of steps: "+N   +" Put option price: "
+                                + calculate( sharePrice, strikePrice, vol / 100, riskFree/100, time, N)+ "-";
+                        writeToFile(data, getActivity());
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
 
 
 
 
-                showToast(String.valueOf(callOptionPrice));
+
+
+
 
 
             }
@@ -98,88 +134,91 @@ public class Second_Frag extends Fragment {
 
 
 
-    /**
-     * Estimate European Option price based on Cox, Ross and Rubinstein model
-     *
-     * @param asset      Current Asset Price (Option price)
-     * @param strike     Exercise Price (Option strike price)
-     * @param volatility Annual volatility (volatility)
-     * @param intRate    Annual interest rate (risk free interest rate)
-     * @param expiry:    Time to maturity (in terms of year)
-     * @param steps      : Number of steps
-     * @return Put and call price of european options based on Cox, Ross and Rubinstein model
-     */
-    public List<Double> estimatePrice(double asset,
-                                      double strike,
-                                      double volatility,
-                                      double intRate,
-                                      double expiry,
-                                      int steps) {
+
+    public List<Double> calculate(double share, double strike, double vol,
+                                  double riskFree, double time, int numSteps) {
+
         List<Double> results = new ArrayList<>();
-        List<Double> stockPrices = new ArrayList<>();
+        List<Double> sharePrices = new ArrayList<>();
         List<Double> callOptionPrices = new ArrayList<>();
         List<Double> putOptionPrices = new ArrayList<>();
+        List<Double> americanCallOptionPrices = new ArrayList<>();
+        List<Double> americanPutOptionPrices = new ArrayList<>();
 
-        double time_step = (expiry) / steps;
-        double R = Math.exp(intRate * time_step);
-        double dF = 1 / R; // discount Factor
 
-        double u = Math.exp(volatility * Math.sqrt(time_step)); // up boundary
-        double d = 1 / u; // down boundary (Cox, Ross and Rubinstein constraint)
-        // at leaf node, price difference factor between each node
-        double uu = u * u; // (u*d)
-        double p_up = (R - d) / (u - d); // up probability
-        double p_down = 1 - p_up; // down probability
+        double disFactor = 1 / (Math.exp(riskFree * (time / numSteps)));
 
-        // initiliaze stock prices
-        for (int i = 0; i <= steps; i++) {
-            stockPrices.add(i, 0.0d);
+        double upBound = Math.exp(vol * Math.sqrt(time / numSteps));
+        double downBound = 1 / upBound;
+
+        double upProb = ((Math.exp(riskFree * (time / numSteps))) - downBound) / (upBound - downBound);
+        double downProb = 1 - upProb;
+
+
+        for (int i = 0; i <= numSteps; i++) {
+            sharePrices.add(i, 0.0);
         }
 
-        double sDown = asset * Math.pow(d, steps);
-        stockPrices.set(0, sDown);
+        double sDown = share * Math.pow(downBound, numSteps);
+        sharePrices.set(0, sDown);
 
-        // Estimate stock prices in leaf nodes
-        for (int i = 1; i <= steps; i++) {
-            double sD = uu * stockPrices.get(i - 1);
-            stockPrices.set(i, sD);
+
+        for (int i = 1; i <= numSteps; i++) {
+            double sD = upBound * upBound * sharePrices.get(i - 1);
+            sharePrices.set(i, sD);
         }
 
-        // estimate option's intrinsic values at leaf nodes
-        for (int i = 0; i <= steps; i++) {
-            double callOptionPrice = callPayOff(stockPrices.get(i), strike);
+
+        for (int i = 0; i <= numSteps; i++) {
+            double callOptionPrice = callPayOff(sharePrices.get(i), strike);
             callOptionPrices.add(i, callOptionPrice);
-            double putOptionPrice = putPayOff(stockPrices.get(i), strike);
+//            americanCallOptionPrices.add(i, callOptionPrice);
+
+            double putOptionPrice = putPayOff(sharePrices.get(i), strike);
             putOptionPrices.add(i, putOptionPrice);
+//            americanPutOptionPrices.add(i, putOptionPrice);
         }
 
-        // and lets estimate option prices
-        for (int i = steps; i > 0; i--) {
-            for (int j = 0; j <= i - 1; j++) {
-                double callV = dF * (p_up * callOptionPrices.get(j + 1) +
-                        p_down * callOptionPrices.get(j));
-                callOptionPrices.set(j, callV);
-                double putV = dF * (p_up * putOptionPrices.get(j + 1) +
-                        p_down * putOptionPrices.get(j));
-                putOptionPrices.set(j, putV);
+
+        for (int i = numSteps -1; i >= 0; i--) {
+            for (int j = 0; j <= i ; j++) {
+
+                double europeanCallPrice = disFactor * (upProb * callOptionPrices.get(j + 1) +
+                        downProb * callOptionPrices.get(j));
+                callOptionPrices.set(j, europeanCallPrice);
+
+                double europeanPutPrice = disFactor * (upProb * putOptionPrices.get(j + 1) +
+                        downProb * putOptionPrices.get(j));
+                putOptionPrices.set(j, europeanPutPrice);
+
+//                double americanCallPrice = Math.max(sharePrices.get(i) - strike,
+//                        disFactor * (upProb * putOptionPrices.get(j + 1) +
+//                                downProb * putOptionPrices.get(j)));
+//                americanCallOptionPrices.set(j, americanCallPrice);
+//
+//
+//                double americanPutPrice = Math.max(strike - sharePrices.get(i),
+//                        disFactor * (upProb * putOptionPrices.get(j + 1) +
+//                                downProb * putOptionPrices.get(j)));
+//                 americanPutOptionPrices.set(j, americanPutPrice);
+//
             }
         }
-
-        // first elements holds option's price
         results.add(callOptionPrices.get(0));
         results.add(putOptionPrices.get(0));
+//        results.add(americanCallOptionPrices.get(0));
+//        results.add(americanPutOptionPrices.get(0));
         return results;
+
     }
 
-    // Pay off method for put options
-    private double putPayOff(double stockPrice, double strike) {
-        return Math.max(strike - stockPrice, 0);
+    private double putPayOff(double share, double strike) {
+        return Math.max(strike - share, 0);
     }
 
-    // Pay off method for call options
-    private double callPayOff(double stockPrice, double strike) {
-        return Math.max(stockPrice - strike, 0);
+    private double callPayOff(double share, double strike) {
+        return Math.max(share - strike, 0);
     }
-
 
 }
+

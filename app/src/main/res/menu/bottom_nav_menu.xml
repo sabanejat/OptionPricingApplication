@@ -4,29 +4,29 @@
     <item
         android:id="@+id/action_calendar"
         android:title="@string/black_scholes"
-        android:icon="@drawable/ic_bs"
+        android:icon="@drawable/ic_black_scholes"
         android:background="#6A656A"
          />
     <item
         android:id="@+id/action_dollar"
         android:title="@string/binomial"
-        android:icon="@drawable/ic_calendar"
+        android:icon="@drawable/ic_binomial"
         android:background="#6A656A"/>
     <item
         android:id="@+id/action_percent"
         android:title="@string/monte_carlo"
-        android:icon="@drawable/ic_calendar"
+        android:icon="@drawable/ic_montecarlo"
         android:background="#6A656A"/>
 
     <item
         android:id="@+id/action_five"
         android:title="@string/baw"
-        android:icon="@drawable/ic_calendar"
+        android:icon="@drawable/ic_baw"
         android:background="#6A656A"/>
 
     <item
         android:id="@+id/action_history"
         android:title="@string/history"
-        android:icon="@drawable/ic_calendar"
+        android:icon="@drawable/ic_history"
         android:background="#6A656A"/>
 </menu>

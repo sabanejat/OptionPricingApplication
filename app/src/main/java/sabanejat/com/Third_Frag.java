@@ -47,7 +47,7 @@ public class Third_Frag extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         view = inflater.inflate(R.layout.fragment_third_, container, false);
 
 
@@ -76,24 +76,45 @@ public class Third_Frag extends Fragment {
 
                 Double callOptionPrice = 0D;
                 if (aSwitch.isChecked()) {
-                    List<Double> results = estimatePrice(sharePrice, strikePrice, vol / 100, riskFree / 100, time, nSims);
+                    List<Double> results = calculate(sharePrice, strikePrice, vol / 100, riskFree / 100, time, nSims);
                     callOptionPrice = results.get(0);
                     showToast(String.valueOf(callOptionPrice));
 
+                    try {
+                        String data = readFromFile(getActivity()) + "2,"
+                                +"Monte Carlo , share price: " + sharePrice + ", strike price: " + strikePrice
+                                + ", risk free interest rate: " + riskFree  + ", time: " + time + ", volatility: " + vol
+                                + ", number of sims: "+nSims +" Call option price: "
+                                + calculate( sharePrice, strikePrice, vol / 100, riskFree/100, time, nSims)+ "-";
+                        writeToFile(data, getActivity());
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 } else {
-                    List<Double> results = estimatePrice(sharePrice, strikePrice, vol / 100, riskFree / 100, time, nSims);
+                    List<Double> results = calculate(sharePrice, strikePrice, vol / 100, riskFree / 100, time, nSims);
                     callOptionPrice = results.get(1);
                     showToast(String.valueOf(callOptionPrice));
+
+                    try {
+                        String data = readFromFile(getActivity()) + "2,"
+                                +"Monte Carlo , share price: " + sharePrice + ", strike price: " + strikePrice
+                                + ", risk free interest rate: " + riskFree  + ", time: " + time + ", volatility: " + vol
+                                + ", number of sims: "+nSims +" Put option price: "
+                                + calculate( sharePrice, strikePrice, vol / 100, riskFree/100, time, nSims)+ "-";
+                        writeToFile(data, getActivity());
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
-                try {
 
-                    String data = readFromFile(getActivity()) + "2," + sharePrice + "," + strikePrice + "," + riskFree / 100 + "," + time + "," + vol / 100 + "," + nSims + "," + aSwitch.isChecked() + ","  + callOptionPrice + "-";
-                    writeToFile(data, getActivity());
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
 
 
             }
@@ -108,52 +129,40 @@ public class Third_Frag extends Fragment {
         Toast.makeText(getActivity(), calculatedNum, Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * Estimate European Option price by Monte Carlo Simulation
-     *
-     * @param asset      Current Asset Price
-     * @param strike     Exercise Price
-     * @param volatility Annual volatility
-     * @param intRate    Annual interest rate
-     * @param time:      Time to maturity (in terms of year)
-     * @param num_sim    : Number of simulations
-     * @return Put and call price of european options based on
-     * Monte Carlo Simulation
-     */
-    public List<Double> estimatePrice(double asset,
-                                      double strike,
-                                      double volatility,
-                                      double intRate,
-                                      double time,
-                                      int num_sim) {
+
+    public List<Double> calculate(double share, double strike, double vol,
+                                  double riskFree, double time, int numSims) {
         List<Double> results = new ArrayList<>();
-        double R = (intRate - 0.5 * Math.pow(volatility, 2)) * time;
-        double SD = volatility * Math.sqrt(time);
-        double dF = Math.exp(-intRate * time); // discount Factor
+
+
+        double disFactor = Math.exp(-riskFree * time);
         double sumCallPayoffs = 0.0;
         double sumPutPayoffs = 0.0;
         Random random = new Random();
-        for (int i = 0; i <= num_sim; i++) {
+
+        for (int i = 0; i <= numSims; i++) {
             double nextGaussian = random.nextGaussian();
-            double S_T = asset * Math.exp(R + SD * nextGaussian);
-            sumCallPayoffs += callPayOff(S_T, strike);
-            sumPutPayoffs += putPayOff(S_T, strike);
+            double St = share * Math.exp(((riskFree - 0.5 * Math.pow(vol, 2)) * time) +
+                    (vol * Math.sqrt(time)) * nextGaussian);
+            sumCallPayoffs += callPayOff(St, strike);
+            sumPutPayoffs += putPayOff(St, strike);
         }
-        double callOptionPrices = dF * sumCallPayoffs / num_sim;
-        double putOptionPrices = dF * sumPutPayoffs / num_sim;
+
+        double callOptionPrices = disFactor * sumCallPayoffs / numSims;
+        double putOptionPrices = disFactor * sumPutPayoffs / numSims;
+
+
         results.add(callOptionPrices);
         results.add(putOptionPrices);
         return results;
     }
 
-    // Pay off method for put options
-    private double putPayOff(double stockPrice, double strike) {
-        return Math.max(strike - stockPrice, 0);
+    private double putPayOff(double share, double strike) {
+        return Math.max(strike - share, 0);
     }
 
-    // Pay off method for call options
-    private double callPayOff(double stockPrice, double strike) {
-        return Math.max(stockPrice - strike, 0);
+    private double callPayOff(double share, double strike) {
+        return Math.max(share - strike, 0);
     }
 
 }

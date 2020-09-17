@@ -11,10 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.Toast;
 
 
-
+import java.util.List;
 
 import static java.lang.Math.abs;
 import static java.lang.Math.exp;
@@ -39,7 +40,7 @@ public class First_Frag extends Fragment {
     EditText volatility;
     EditText optionDate;
 
-
+    Switch aSwitch;
     Button calculate;
 
     private View view;
@@ -56,6 +57,7 @@ public class First_Frag extends Fragment {
         volatility = view.findViewById(R.id.volatility);
         optionDate = view.findViewById(R.id.optionDate);
 
+        aSwitch = view.findViewById(R.id.callSwitch);
 
         calculate = view.findViewById(R.id.calculate);
         calculate.setOnClickListener(new View.OnClickListener() {
@@ -68,17 +70,41 @@ public class First_Frag extends Fragment {
                 time = Double.parseDouble(optionDate.getText().toString());
 
 
-                double result = calculate(true, sharePrice, strikePrice, riskFree / 100, time, vol / 100);
+                if (aSwitch.isChecked()) {
+                    double callOptionPrice = calculate(true, sharePrice, strikePrice, riskFree / 100,  time, vol/100);
+                    showToast(String.valueOf(callOptionPrice));
 
-                try {
+                    try {
+                        String data = readFromFile(getActivity()) + "0,"
+                                +"Black Scholes , share price: " + sharePrice + ", strike price: " + strikePrice
+                                + ", risk free interest rate: " + riskFree  + ", time: " + time + ", volatility: " + vol + " Call option price: "
+                                + calculate(true, sharePrice, strikePrice, riskFree / 100,  time, vol/100)+ "-";
+                        writeToFile(data, getActivity());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
-                    String data = readFromFile(getActivity()) + "Share Price," + sharePrice + "," + strikePrice + "," + riskFree / 100 + "," + time + "," + vol / 100 + "," + result + "-";
-                    writeToFile(data, getActivity());
+                } else {
+                    double putOptionPrice = calculate(false, sharePrice, strikePrice, riskFree / 100,  time, vol/100);
+                    showToast(String.valueOf(putOptionPrice));
 
-                } catch (Exception e) {
-                    e.printStackTrace();
+                    try {
+                        String data = readFromFile(getActivity()) + "0,"
+                                +"Black Scholes , share price: " + sharePrice + ", strike price: " + strikePrice
+                                + ", risk free interest rate: " + riskFree  + ", time: " + time + ", volatility: " + vol + " Put option price: "
+                                + calculate(false, sharePrice, strikePrice, riskFree / 100,  time, vol/100)+ "-";
+                        writeToFile(data, getActivity());
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                 }
-                showToast(String.valueOf(result));
+
+
+
             }
         });
 
@@ -98,25 +124,25 @@ public class First_Frag extends Fragment {
         if (callOption) {
             double cumDistribution1 = cumDistribution(d1(share, strike, riskFree, time, volatility));
             double cumDistribution2 = cumDistribution(d2(share, strike, riskFree, time, volatility));
-            return share * cumDistribution1 - strike * exp(-riskFree * time) * cumDistribution2;
+            return share * cumDistribution1 - strike * Math.exp(-riskFree * time) * cumDistribution2;
 
         } else {
             double cumDistribution1 = cumDistribution(-d1(share, strike, riskFree, time, volatility));
             double cumDistribution2 = cumDistribution(-d2(share, strike, riskFree, time, volatility));
-            return strike * exp(-riskFree * time) * cumDistribution2 - share * cumDistribution1;
+            return strike * Math.exp(-riskFree * time) * cumDistribution2 - share * cumDistribution1;
 
         }
     }
 
     private static double d1(double share, double strike, double riskFree,
                              double time, double volatility) {
-        return (log(share / strike) + (riskFree + pow(volatility, 2) / 2) * time)
-                / (volatility * sqrt(time));
+        return (log(share / strike) + (riskFree + Math.pow(volatility, 2) / 2) * time)
+                / (volatility * Math.sqrt(time));
     }
 
     private static double d2(double share, double strike, double riskFree,
                              double time, double volatility) {
-        return d1(share, strike, riskFree, time, volatility) - volatility * sqrt(time);
+        return d1(share, strike, riskFree, time, volatility) - volatility * Math.sqrt(time);
 
     }
 
